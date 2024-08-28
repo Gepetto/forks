@@ -83,6 +83,15 @@ git reset --hard github.com/NixOS/nixpkgs/master
     git log --no-color --format=reference -1 "github.com/nim65s/nixpkgs/tsid"
 # }}}
 
+# pinocchio: 3.1.0 -> 3.2.0 {{{
+    git merge --no-edit "github.com/nim65s/nixpkgs/pinocchio" >&2
+    echo "- pinocchio: 3.1.0 -> 3.2.0"
+    echo -n "  in: "
+    git log --no-color --format=reference -1
+    echo -n "  which is on: "
+    git log --no-color --format=reference -1 "github.com/nim65s/nixpkgs/pinocchio"
+# }}}
+
 # hpp {{{
     git merge --no-edit "github.com/gepetto/nixpkgs/hpp" >&2
     echo "- hpp"
