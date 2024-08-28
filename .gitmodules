@@ -1,0 +1,4 @@
+[submodule "gepetto-nixpkgs-master"]
+	path = gepetto-nixpkgs-master
+	url = git@github.com:gepetto/nixpkgs
+	branch = master
