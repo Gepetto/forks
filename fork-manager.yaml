@@ -1,0 +1,18 @@
+config:
+  url: https://github.com/gepetto/forks
+forks:
+  - name: gepetto-nixpkgs-master
+    target:
+      url: git@github.com:gepetto/nixpkgs
+      branch: master
+    upstream:
+      url: git@github.com:NixOS/nixpkgs
+      branch: master
+    changes:
+      - pr: 324018  # gepetto-viewer
+      - pr: 337549  # clean hpp-fcl
+      - pr: 337587  # tsid
+      - url: git@github.com:gepetto/nixpkgs
+        branch: hpp
+      - url: git@github.com:gepetto/nixpkgs
+        branch: osg-dae
