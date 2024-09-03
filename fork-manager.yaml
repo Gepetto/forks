@@ -19,6 +19,14 @@ forks:
       - title: add collada support to gepetto-viewer
         url: git@github.com:gepetto/nixpkgs
         branch: osg-dae
+  - name: gepetto-nixpkgs-gv
+    target:
+      url: git@github.com:gepetto/nixpkgs
+      branch: gv
+    upstream:
+      url: git@github.com:gepetto/nixpkgs
+      branch: master
+    changes:
       - title: set back default to gepetto-viewer (based on #337942)
         url: git@github.com:gepetto/nixpkgs
         branch: pin-default-gv
