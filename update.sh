@@ -9,10 +9,12 @@ pushd "$SCRIPT_DIR"
 
 git submodule update --init
 
+GIT_SUBMODULE_STATUS=$(git submodule status)
+
 
 # gepetto-nixpkgs-master {{
 
-if git submodule status | grep -q " gepetto-nixpkgs-master "
+if grep -q " gepetto-nixpkgs-master " <<< "$GIT_SUBMODULE_STATUS"
 then
     git submodule set-branch --branch master gepetto-nixpkgs-master
     git submodule set-url gepetto-nixpkgs-master git@github.com:gepetto/nixpkgs
@@ -38,7 +40,7 @@ do
 done
 
 git fetch --all --prune
-git reset --hard github.com/NixOS/nixpkgs/master
+git reset --hard github.com/NixOS/nixpkgs/nixos-unstable
 
 {
     echo "# fork-manager"
@@ -48,7 +50,7 @@ git reset --hard github.com/NixOS/nixpkgs/master
 
 
 
-    echo "It is based on git@github.com:NixOS/nixpkgs master"
+    echo "It is based on git@github.com:NixOS/nixpkgs nixos-unstable"
     echo -n "  which is on: "
     git log --no-color --format=reference -1
 
@@ -134,7 +136,7 @@ git commit -m "updated gepetto-nixpkgs-master"
 
 # gepetto-nixpkgs-gv {{
 
-if git submodule status | grep -q " gepetto-nixpkgs-gv "
+if grep -q " gepetto-nixpkgs-gv " <<< "$GIT_SUBMODULE_STATUS"
 then
     git submodule set-branch --branch gv gepetto-nixpkgs-gv
     git submodule set-url gepetto-nixpkgs-gv git@github.com:gepetto/nixpkgs
