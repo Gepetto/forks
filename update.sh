@@ -92,22 +92,31 @@ git reset --hard github.com/NixOS/nixpkgs/master
     git log --no-color --format=reference -1 "github.com/nim65s/nixpkgs/pinocchio"
 # }}}
 
-# hpp {{{
+# initial HPP packaging (based on {{{
     git merge --no-edit "github.com/gepetto/nixpkgs/hpp" >&2
-    echo "- hpp"
+    echo "- initial HPP packaging (based on"
     echo -n "  in: "
     git log --no-color --format=reference -1
     echo -n "  which is on: "
     git log --no-color --format=reference -1 "github.com/gepetto/nixpkgs/hpp"
 # }}}
 
-# osg-dae {{{
+# add collada support to gepetto-viewer {{{
     git merge --no-edit "github.com/gepetto/nixpkgs/osg-dae" >&2
-    echo "- osg-dae"
+    echo "- add collada support to gepetto-viewer"
     echo -n "  in: "
     git log --no-color --format=reference -1
     echo -n "  which is on: "
     git log --no-color --format=reference -1 "github.com/gepetto/nixpkgs/osg-dae"
+# }}}
+
+# set back default to gepetto-viewer (based on {{{
+    git merge --no-edit "github.com/gepetto/nixpkgs/pin-default-gv" >&2
+    echo "- set back default to gepetto-viewer (based on"
+    echo -n "  in: "
+    git log --no-color --format=reference -1
+    echo -n "  which is on: "
+    git log --no-color --format=reference -1 "github.com/gepetto/nixpkgs/pin-default-gv"
 # }}}
 
 
