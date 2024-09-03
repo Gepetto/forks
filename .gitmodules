@@ -2,3 +2,7 @@
 	path = gepetto-nixpkgs-master
 	url = git@github.com:gepetto/nixpkgs
 	branch = master
+[submodule "gepetto-nixpkgs-gv"]
+	path = gepetto-nixpkgs-gv
+	url = git@github.com:gepetto/nixpkgs
+	branch = gv
