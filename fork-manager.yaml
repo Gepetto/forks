@@ -7,7 +7,7 @@ forks:
       branch: master
     upstream:
       url: git@github.com:NixOS/nixpkgs
-      branch: master
+      branch: nixos-unstable
     changes:
       - pr: 324018  # gepetto-viewer
       - pr: 337549  # clean hpp-fcl
