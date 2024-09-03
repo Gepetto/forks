@@ -110,15 +110,6 @@ git reset --hard github.com/NixOS/nixpkgs/master
     git log --no-color --format=reference -1 "github.com/gepetto/nixpkgs/osg-dae"
 # }}}
 
-# set back default to gepetto-viewer (based on {{{
-    git merge --no-edit "github.com/gepetto/nixpkgs/pin-default-gv" >&2
-    echo "- set back default to gepetto-viewer (based on"
-    echo -n "  in: "
-    git log --no-color --format=reference -1
-    echo -n "  which is on: "
-    git log --no-color --format=reference -1 "github.com/gepetto/nixpkgs/pin-default-gv"
-# }}}
-
 
     echo
     echo "---"
@@ -138,6 +129,83 @@ popd
 
 git add gepetto-nixpkgs-master
 git commit -m "updated gepetto-nixpkgs-master"
+
+# }}
+
+# gepetto-nixpkgs-gv {{
+
+if git submodule status | grep -q " gepetto-nixpkgs-gv "
+then
+    git submodule set-branch --branch gv gepetto-nixpkgs-gv
+    git submodule set-url gepetto-nixpkgs-gv git@github.com:gepetto/nixpkgs
+else
+    git submodule add -b gv git@github.com:gepetto/nixpkgs gepetto-nixpkgs-gv
+    git add .gitmodules
+    git commit -m "add submodule for gepetto-nixpkgs-gv"
+fi
+
+pushd gepetto-nixpkgs-gv
+git checkout gv
+
+
+for remote in git@github.com:NixOS/nixpkgs git@github.com:gepetto/nixpkgs git@github.com:nim65s/nixpkgs
+do
+    name=$(echo "$remote" | sed 's=https://==;s=git@==;s=:=/=g')
+    if git remote | grep -q "^$name$"
+    then
+        git remote set-url "$name" "$remote"
+    else
+        git remote add "$name" "$remote"
+    fi
+done
+
+git fetch --all --prune
+git reset --hard github.com/gepetto/nixpkgs/master
+
+{
+    echo "# fork-manager"
+    echo
+
+    echo "This branch is managed from https://github.com/gepetto/forks"
+
+
+
+    echo "It is based on git@github.com:gepetto/nixpkgs master"
+    echo -n "  which is on: "
+    git log --no-color --format=reference -1
+
+    echo
+    echo "It include:"
+
+
+# set back default to gepetto-viewer (based on {{{
+    git merge --no-edit "github.com/gepetto/nixpkgs/pin-default-gv" >&2
+    echo "- set back default to gepetto-viewer (based on"
+    echo -n "  in: "
+    git log --no-color --format=reference -1
+    echo -n "  which is on: "
+    git log --no-color --format=reference -1 "github.com/gepetto/nixpkgs/pin-default-gv"
+# }}}
+
+
+    echo
+    echo "---"
+    echo
+
+    test -f README.md && cat README.md
+} > "../.gepetto-nixpkgs-gv.log"
+
+mv "../.gepetto-nixpkgs-gv.log" README.md
+git add README.md
+git commit -m "document fork manager"
+
+[[ -x "../test-gepetto-nixpkgs-gv.sh" ]] && "../test-gepetto-nixpkgs-gv.sh"
+
+[[ "$#" -eq 1 && "$1" == "push" ]] && git push -f github.com/gepetto/nixpkgs gv
+popd
+
+git add gepetto-nixpkgs-gv
+git commit -m "updated gepetto-nixpkgs-gv"
 
 # }}
 
